@@ -34,6 +34,9 @@
   ],
   "author": "choneface",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "openclaw": {
     "extensions": [
       "./dist/index.js"
