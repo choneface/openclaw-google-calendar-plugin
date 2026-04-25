@@ -1,0 +1,56 @@
+{
+  "id": "google-calendar",
+  "name": "Google Calendar",
+  "description": "Read and write Google Calendar events via the official Google APIs.",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "auth": {
+        "type": "object",
+        "description": "Authentication strategy. Provide either an OAuth2 refresh-token block or a service-account block.",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": ["oauth2", "service-account"],
+            "description": "Auth mode. Defaults to 'oauth2' when a refreshToken is provided."
+          },
+          "clientId": {
+            "type": "string",
+            "description": "OAuth2 client ID (oauth2 mode)."
+          },
+          "clientSecret": {
+            "type": "string",
+            "description": "OAuth2 client secret (oauth2 mode)."
+          },
+          "refreshToken": {
+            "type": "string",
+            "description": "Long-lived OAuth2 refresh token (oauth2 mode)."
+          },
+          "redirectUri": {
+            "type": "string",
+            "description": "OAuth2 redirect URI used when the refresh token was minted. Defaults to 'urn:ietf:wg:oauth:2.0:oob'."
+          },
+          "serviceAccountKey": {
+            "type": ["object", "string"],
+            "description": "Service-account JSON (object or stringified JSON). Used when mode='service-account'."
+          },
+          "subject": {
+            "type": "string",
+            "description": "Optional user email to impersonate (domain-wide delegation, service-account mode only)."
+          },
+          "scopes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Override the default scope list. Defaults to https://www.googleapis.com/auth/calendar."
+          }
+        }
+      },
+      "defaultCalendarId": {
+        "type": "string",
+        "description": "Calendar ID to use when a tool call omits one. Defaults to 'primary'."
+      }
+    },
+    "required": ["auth"]
+  }
+}
