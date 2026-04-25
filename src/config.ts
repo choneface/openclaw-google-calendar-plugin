@@ -57,7 +57,15 @@ function parseServiceAccountKey(raw: unknown): ServiceAccountKey {
 
 export function normalizeConfig(pluginConfig: Record<string, unknown> | undefined): NormalizedConfig {
   const cfg = pluginConfig ?? {};
-  const auth = (cfg.auth ?? {}) as Record<string, unknown>;
+  if (!cfg.auth || typeof cfg.auth !== "object") {
+    const present = Object.keys(cfg).join(", ") || "<none>";
+    throw new Error(
+      "google-calendar plugin: config.auth block is missing. " +
+        `pluginConfig has keys [${present}]. Set plugins.entries['google-calendar'].config.auth ` +
+        "to { mode, ... } — see README at https://github.com/choneface/openclaw-google-calendar-plugin#configure",
+    );
+  }
+  const auth = cfg.auth as Record<string, unknown>;
   const scopes = Array.isArray(auth.scopes) && auth.scopes.length > 0
     ? auth.scopes.map((s) => String(s))
     : DEFAULT_SCOPES;

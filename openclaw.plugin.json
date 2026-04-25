@@ -32,8 +32,11 @@
             "description": "OAuth2 redirect URI used when the refresh token was minted. Defaults to 'urn:ietf:wg:oauth:2.0:oob'."
           },
           "serviceAccountKey": {
-            "type": ["object", "string"],
-            "description": "Service-account JSON (object or stringified JSON). Used when mode='service-account'."
+            "oneOf": [
+              { "type": "object" },
+              { "type": "string", "minLength": 1 }
+            ],
+            "description": "Service-account JSON. Either the parsed object (recommended) or a stringified JSON blob. Used when mode='service-account'. NOTE: ${ENV_VAR} template strings are not auto-interpolated in OpenClaw plugin config — paste the literal value or use a secretRef."
           },
           "subject": {
             "type": "string",
