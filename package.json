@@ -1,6 +1,6 @@
 {
   "name": "@choneface/openclaw-google-calendar-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Google Calendar plugin for OpenClaw — full CRUD over events, calendars, and free/busy via the official googleapis SDK.",
   "type": "module",
   "main": "dist/index.js",
